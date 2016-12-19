@@ -206,7 +206,11 @@ public class MainActivity extends AppCompatActivity implements BoomMenuButton.On
     //region 实现接口方法
     @Override
     public void onClick(int buttonIndex) {
-
+        switch (buttonIndex){
+            case 0:
+                startActivity(new Intent(MainActivity.this,BLEActivity.class));
+                break;
+        }
     }
 
     @Override
