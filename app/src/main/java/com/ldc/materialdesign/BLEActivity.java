@@ -34,9 +34,9 @@ public class BLEActivity extends AppCompatActivity{
     private static final String TAG = "BLEActivity";
 
     private BluetoothLEController mBLEController;
-    private static final String SERVICE_ID = "0000180d-0000-1000-8000-00805f9b34fb";
-    private static final String READ_CHARACTERISTIC_ID = "0000fec1-0000-3512-2118-0009af100700";
-    private static final String WRITE_CHARACTERISTIC_ID = "0000fec1-0000-3512-2118-0009af100700";
+    private static final String SERVICE_ID = "0000ffe0-0000-1000-8000-00805f9b34fb";
+    private static final String READ_CHARACTERISTIC_ID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+    private static final String WRITE_CHARACTERISTIC_ID = "0000ffe1-0000-1000-8000-00805f9b34fb";
 
     private List<String> mList;
     private ArrayAdapter<String> mFoundAdapter;
@@ -81,6 +81,7 @@ public class BLEActivity extends AppCompatActivity{
 
         lvDevices.setAdapter(mFoundAdapter);
 
+        mBLEController.setServiceID(SERVICE_ID);
         mBLEController.setReadCharacteristicUUID(READ_CHARACTERISTIC_ID);
         mBLEController.setWriteCharacteristicUUID(WRITE_CHARACTERISTIC_ID);
         //扫描
@@ -94,10 +95,10 @@ public class BLEActivity extends AppCompatActivity{
                     Toast.makeText(BLEActivity.this, "Scanning!", Toast.LENGTH_SHORT).show();
                 }
 
-//                You can scan by service using the following code:
+////                You can scan by service using the following code:
 //                List<UUID> uuids = new ArrayList<UUID>();
 //                uuids.add(UUID.fromString(SERVICE_ID));
-//
+
 //                if( mBLEController.startScanByService(uuids) ){
 //                    Toast.makeText(BLEActivity.this, "Scanning!", Toast.LENGTH_SHORT).show();
 //                }
@@ -124,6 +125,7 @@ public class BLEActivity extends AppCompatActivity{
                 String msg = "Hello world";
                 if (!TextUtils.isEmpty(msg)) {
                     mBLEController.write(msg);
+                    mBLEController.read();
                 }
             }
         });
