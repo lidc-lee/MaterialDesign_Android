@@ -91,9 +91,10 @@ public class BluetoothLEController extends Bluetooth{
         BLEService.setWriteCharacteristicUUID(writeCharacteristicUUID);
     }
 
-    public void setSERVICE_UUID(String SERVICE_UUID) {
-        BLEService.setSERVICE_UUID(SERVICE_UUID);
+    public void setServiceID(String SERVICE_UUID) {
+        BLEService.setServiceID(SERVICE_UUID);
     }
+
 
     //region 重写Bluetooth方法
     @Override
@@ -150,6 +151,7 @@ public class BluetoothLEController extends Bluetooth{
         return true;
     }
 
+    //通过UUID服务搜索设备
     @Override
     public boolean startScanByService(List<UUID> serviceUUIDs) {
         if (!isAvailable() && !isEnabled()){
@@ -183,7 +185,7 @@ public class BluetoothLEController extends Bluetooth{
         }
         return true;
     }
-
+    //获取已配对的蓝牙设备
     @Override
     public Set<BluetoothDevice> getBondedDevices() {
         return super.getBondedDevices();
@@ -225,6 +227,13 @@ public class BluetoothLEController extends Bluetooth{
     public void write(String data) {
         if (BLEService != null){
             BLEService.write(data);
+        }
+    }
+
+    @Override
+    public void read() {
+        if (BLEService != null){
+            BLEService.read();
         }
     }
 
@@ -330,4 +339,5 @@ public class BluetoothLEController extends Bluetooth{
             };
 
     //endregion
+
 }

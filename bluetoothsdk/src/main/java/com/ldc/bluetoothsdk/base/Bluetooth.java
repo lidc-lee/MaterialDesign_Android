@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  * Created by AA on 2016/12/16.
- * 广播监听、蓝牙设备的操作、
+ * 蓝牙基本操作、
  */
 
 public abstract class Bluetooth {
@@ -176,6 +176,11 @@ public abstract class Bluetooth {
      * @param data
      */
     public void write(String data){}
+
+    //读取数据
+    public void read(){
+
+    }
 
     /**
      * 获取已连接的蓝牙设备

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BluetoothSdk</string>
+    <string name="error">该设备下没有找到该特性</string>
 </resources>
