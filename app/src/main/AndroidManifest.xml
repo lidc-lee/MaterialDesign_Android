@@ -21,6 +21,12 @@
 
         <activity android:name=".BLEActivity"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".ChartListActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".ChartsActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

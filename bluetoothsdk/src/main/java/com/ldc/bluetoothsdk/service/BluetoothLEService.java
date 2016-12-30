@@ -89,6 +89,7 @@ public class BluetoothLEService {
                 Log.e("write error","该设备下没有找到该特性");
                 return;
             }
+            mBluetoothGatt.setCharacteristicNotification(mNotifyCharacteristic,true);
             mWriteCharacteristic.setValue(data);
             mBluetoothGatt.writeCharacteristic(mWriteCharacteristic);
         }
@@ -172,41 +173,48 @@ public class BluetoothLEService {
                             final int charaProp = characteristic.getProperties();
                             final String charaUUID = characteristic.getUuid().toString();
 
-                            //读
-                            if ((charaProp | BluetoothGattCharacteristic.PERMISSION_READ) > 0) {
-
-                                if (UUID.fromString(readCharacteristicUUID).equals(characteristic.getUuid())) {
-                                    if (mNotifyCharacteristic != null) {
-                                        mBluetoothGatt.setCharacteristicNotification(mNotifyCharacteristic, false);
-                                        mNotifyCharacteristic = null;
-                                    }
-//                                    gatt.readCharacteristic(characteristic);
-                                    mReadCharacteristic = characteristic;
-                                    Log.d("LMBluetoothSdk", "Assigning read characteristic : " + characteristic.getUuid());
-                                }
-                            }
-
-                            //接受Characteristic被读的通知,收到蓝牙模块的数据后会触发mOnDataAvailable.onCharacteristicWrite()
-                            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-                                if (readCharacteristicUUID.isEmpty()) {
-                                    mNotifyCharacteristic = characteristic;
-                                    mBluetoothGatt.setCharacteristicNotification(characteristic, true);
-                                } else if (charaUUID.equalsIgnoreCase(readCharacteristicUUID)) {
-                                    mNotifyCharacteristic = characteristic;
-                                    if (mBluetoothGatt.setCharacteristicNotification(characteristic, true)) {
-                                        Log.d("LMBluetoothSdk", "Subscribing to characteristic : " + characteristic.getUuid());
-                                    }
-                                }
-                            }
-
+//                            //读
+//                            if ((charaProp | BluetoothGattCharacteristic.PERMISSION_READ) > 0) {
+//
+//                                if (UUID.fromString(readCharacteristicUUID).equals(characteristic.getUuid())) {
+//                                    if (mNotifyCharacteristic != null) {
+//                                        mBluetoothGatt.setCharacteristicNotification(mNotifyCharacteristic, false);
+//                                        mNotifyCharacteristic = null;
+//                                    }
+////                                    gatt.readCharacteristic(characteristic);
+//                                    mReadCharacteristic = characteristic;
+//                                    Log.d("LMBluetoothSdk", "Assigning read characteristic : " + characteristic.getUuid());
+//                                }
+//                            }
+//
+//                            //接受Characteristic被读的通知,收到蓝牙模块的数据后会触发mOnDataAvailable.onCharacteristicWrite()
+//                            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+//                                if (readCharacteristicUUID.isEmpty()) {
+//                                    mNotifyCharacteristic = characteristic;
+//                                    mBluetoothGatt.setCharacteristicNotification(characteristic, true);
+//                                } else if (charaUUID.equalsIgnoreCase(readCharacteristicUUID)) {
+//                                    mNotifyCharacteristic = characteristic;
+//                                    if (mBluetoothGatt.setCharacteristicNotification(characteristic, true)) {
+//                                        Log.d("LMBluetoothSdk", "Subscribing to characteristic : " + characteristic.getUuid());
+//                                    }
+//                                }
+//                            }
+//                            //接受Characteristic写的通知,收到蓝牙模块的数据后会触发mOnDataAvailable.onCharacteristicWrite()
+//                            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
+//                                 if (charaUUID.equalsIgnoreCase(writeCharacteristicUUID)) {
+//                                    mNotifyCharacteristic = characteristic;
+//                                }
+//                            }
                             if (((charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE)
                                     | (charaProp & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)) > 0) {
                                 if (charaUUID.equalsIgnoreCase(writeCharacteristicUUID)) {
                                     Log.e("LMBluetoothSdk", "write service" + service);
                                     Log.e("LMBluetoothSdk", "Assigning write characteristic : " + characteristic.getUuid());
+                                    mNotifyCharacteristic = characteristic;
                                     mWriteCharacteristic = characteristic;
                                     mBluetoothGatt.setCharacteristicNotification(characteristic, true);
-
+                                    mWriteCharacteristic.setValue("send data");
+                                    gatt.writeCharacteristic(mWriteCharacteristic);
                                 }
                             }
                         }

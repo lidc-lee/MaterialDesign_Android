@@ -29,4 +29,5 @@ dependencies {
     compile 'com.nightonke:boommenu:1.0.9'
 
     compile project(':bluetoothsdk')
+    compile project(':xCLCharts')
 }

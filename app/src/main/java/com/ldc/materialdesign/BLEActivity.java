@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -90,7 +91,11 @@ public class BLEActivity extends AppCompatActivity{
             public void onClick(View v) {
                 mList.clear();
                 mFoundAdapter.notifyDataSetChanged();
-
+                //蓝牙是否开启
+                if (!mBLEController.isEnabled()){
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, 111);
+                }
                 if( mBLEController.startScan() ){
                     Toast.makeText(BLEActivity.this, "Scanning!", Toast.LENGTH_SHORT).show();
                 }
@@ -125,7 +130,7 @@ public class BLEActivity extends AppCompatActivity{
                 String msg = "Hello world";
                 if (!TextUtils.isEmpty(msg)) {
                     mBLEController.write(msg);
-                    mBLEController.read();
+//                    mBLEController.read();
                 }
             }
         });
@@ -133,10 +138,21 @@ public class BLEActivity extends AppCompatActivity{
         lvDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //蓝牙是否开启
+                if (!mBLEController.isEnabled()){
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, 111);
+                }
                 String itemStr = mList.get(position);
                 mBLEController.connect(itemStr.substring(itemStr.length() - 17));
             }
         });
+
+        //蓝牙是否开启
+        if (!mBLEController.isEnabled()){
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, 111);
+        }
         //是否支持BLE
         if (!mBLEController.isSupportBLE()){
             Toast.makeText(this, "Unsupport BLE!", Toast.LENGTH_SHORT).show();
@@ -151,7 +167,7 @@ public class BLEActivity extends AppCompatActivity{
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tvContent.append("Read from " + characteristic.getUuid()+"\n");
+                    tvContent.append("Read from " + characteristic.getValue()+"\n");
                 }
             });
         }
