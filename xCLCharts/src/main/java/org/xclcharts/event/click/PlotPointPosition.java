@@ -23,6 +23,7 @@ package org.xclcharts.event.click;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.util.Log;
 
 
 /**
@@ -55,7 +56,8 @@ public class PlotPointPosition extends PointPosition{
 		if(null == mPoint)mPoint = new PointF();
 		
 		mPoint.x =  x;
-		mPoint.y =  y;				
+		mPoint.y =  y;
+		Log.e("x+y",x+"---"+y);
 	}
 	
 	public void savePlotRectF(float left,float top,

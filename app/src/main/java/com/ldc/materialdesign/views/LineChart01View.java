@@ -147,7 +147,7 @@ public class LineChart01View extends DemoView {
 			//激活点击监听
 			chart.ActiveListenItemClick();
 			//为了让触发更灵敏，可以扩大5px的点击监听范围
-			chart.extPointClickRange(5);
+			chart.extPointClickRange(10);
 			chart.showClikedFocus();
 
 
@@ -292,8 +292,7 @@ public class LineChart01View extends DemoView {
 	
 	//触发监听
 	private void triggerClick(float x,float y)
-	{		
-		
+	{
 		//交叉线
 		if(chart.getDyLineVisible())chart.getDyLine().setCurrentXY(x,y);		
 		if(!chart.getListenItemClickStatus())
@@ -341,7 +340,7 @@ public class LineChart01View extends DemoView {
 //					chart.getToolTip().addToolTip("Line:"+data.getLabel()+","+ xLabels,mPaintTooltips);
 //				}
 //			}
-
+			chart.getPlotLegend().getType();
 			this.invalidate();
 		}
 		

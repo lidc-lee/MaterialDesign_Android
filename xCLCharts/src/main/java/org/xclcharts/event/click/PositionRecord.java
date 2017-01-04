@@ -36,6 +36,7 @@ public abstract class PositionRecord {
 	protected int mDataID = -1;
 	protected int mDataChildID = -1;
 	private int mCategoryID = -1;
+	private int mLegendID = -1;
 
 	public PositionRecord()
 	{
@@ -81,9 +82,15 @@ public abstract class PositionRecord {
 	protected void saveDataChildID(int num)
 	{
 		mDataChildID = num;
-	}	
-		
-	
+	}
+
+	public int getLegendID() {
+		return mLegendID;
+	}
+
+	protected void saveLegendID(int mLegendID) {
+		this.mLegendID = mLegendID;
+	}
 
 	//分类轴的行号
 //	public int getCategoryID()
