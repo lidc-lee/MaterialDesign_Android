@@ -213,6 +213,9 @@ public class MainActivity extends AppCompatActivity implements BoomMenuButton.On
             case 1:
                 startActivity(new Intent(MainActivity.this,ChartListActivity.class));
                 break;
+            case 2:
+                startActivity(new Intent(MainActivity.this,TestUDPActivity.class));
+                break;
         }
     }
 
