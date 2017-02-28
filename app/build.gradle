@@ -30,4 +30,5 @@ dependencies {
 
     compile project(':bluetoothsdk')
     compile project(':xCLCharts')
+    compile project(':lib-zxing')
 }

@@ -1,1 +1,1 @@
-include ':app', ':bluetoothsdk',':xCLCharts'
+include ':app', ':bluetoothsdk',':xCLCharts',':lib-zxing'
